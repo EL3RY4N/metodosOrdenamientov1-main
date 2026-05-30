@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { useState } from 'react'
 import { busquedaBinaria } from '../busqueda/busquedaBinaria'
 import { busquedaLineal } from '../busqueda/busquedaLineal'
@@ -76,6 +77,12 @@ function Busqueda({ onVolver }: { onVolver: () => void }) {
       {resultado !== null && resultado >= 0 && <p>Posición encontrada: {resultado}</p>}
       {resultado !== null && resultado === -1 && <p>Elemento no encontrado</p>}
 
+=======
+function Busqueda({ onVolver }: { onVolver: () => void }) {
+  return (
+    <>
+      <h2>Búsqueda</h2>
+>>>>>>> e24badf7c65fbc78b751449811a27720ba0f1fd5
       <button onClick={onVolver}>← Volver</button>
     </>
   )

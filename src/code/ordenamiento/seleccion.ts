@@ -1,4 +1,5 @@
 export function seleccion(A: number[]): number[] {
+<<<<<<< HEAD
   const N = A.length
 
   for (let i = 0; i < N - 1; i++) {
@@ -18,4 +19,7 @@ export function seleccion(A: number[]): number[] {
   }
 
   return A
+=======
+  return A;
+>>>>>>> e24badf7c65fbc78b751449811a27720ba0f1fd5
 }
