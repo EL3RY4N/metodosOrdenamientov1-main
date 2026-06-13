@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from 'react'
 import { busquedaBinaria } from '../busqueda/busquedaBinaria'
 import { busquedaLineal } from '../busqueda/busquedaLineal'
@@ -11,11 +10,15 @@ function Busqueda({ onVolver }: { onVolver: () => void }) {
   const [error, setError] = useState<string | null>(null)
 
   function buscar() {
-    const arreglo = input.split(',').map(Number)
+    const arreglo = input
+      .split(/[\s,]+/)
+      .map((valor) => valor.trim())
+      .filter((valor) => valor !== '')
+      .map(Number)
     const objetivo = Number(target)
 
     if (arreglo.length === 0 || input.trim() === '') {
-      setError('Ingresa un arreglo de números separados por comas.')
+      setError('Ingresa un arreglo de números separados por comas o espacios.')
       setResultado(null)
       return
     }
@@ -36,8 +39,15 @@ function Busqueda({ onVolver }: { onVolver: () => void }) {
     let indice = -1
 
     if (metodo === 'Búsqueda Binaria') {
-      const ordenado = [...arreglo].sort((a, b) => a - b)
-      indice = busquedaBinaria(ordenado, objetivo)
+      const conIndices = arreglo
+        .map((valor, indiceOriginal) => ({ valor, indiceOriginal }))
+        .sort((a, b) => a.valor - b.valor)
+      const valoresOrdenados = conIndices.map((item) => item.valor)
+      const posicionOrdenada = busquedaBinaria(valoresOrdenados, objetivo)
+
+      if (posicionOrdenada !== -1) {
+        indice = conIndices[posicionOrdenada - 1].indiceOriginal + 1
+      }
     } else if (metodo === 'Búsqueda Lineal') {
       indice = busquedaLineal(arreglo, objetivo)
     }
@@ -46,45 +56,60 @@ function Busqueda({ onVolver }: { onVolver: () => void }) {
   }
 
   return (
-    <>
-      <h2>Búsqueda</h2>
+    <main className="screen">
+      <section className="card">
+        <div className="card-header">
+          <div className="section-title">
+            <span className="section-icon">🔎</span>
+            <h2>Búsqueda</h2>
+          </div>
+          <p className="subtitle">Elige un método y busca tu número rápidamente.</p>
+        </div>
 
-      <div>
-        <button onClick={() => setMetodo('Búsqueda Lineal')}>Búsqueda Lineal</button>
-        <button onClick={() => setMetodo('Búsqueda Binaria')}>Búsqueda Binaria</button>
-      </div>
+        <div className="button-row">
+          <button className="neon-button" onClick={() => setMetodo('Búsqueda Lineal')}>
+            <span className="button-icon">📍</span>
+            Búsqueda Lineal
+          </button>
+          <button className="neon-button" onClick={() => setMetodo('Búsqueda Binaria')}>
+            <span className="button-icon">🧭</span>
+            Búsqueda Binaria
+          </button>
+        </div>
 
-      {metodo && (
-        <>
-          <h3>{metodo}</h3>
-          <input
-            type="text"
-            placeholder="Ej: 1, 3, 5, 7"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Número a buscar"
-            value={target}
-            onChange={(e) => setTarget(e.target.value)}
-          />
-          <button onClick={buscar}>Buscar</button>
-        </>
-      )}
+        {metodo && (
+          <div className="form-grid">
+            <h3>{metodo}</h3>
+            <input
+              className="input-field"
+              type="text"
+              placeholder="Ej: 12, 23, 34, 223, 53, 21"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <input
+              className="input-field"
+              type="text"
+              placeholder="Número a buscar"
+              value={target}
+              onChange={(e) => setTarget(e.target.value)}
+            />
+            <button className="neon-button" onClick={buscar}>
+              <span className="button-icon">🚀</span>
+              Buscar
+            </button>
+          </div>
+        )}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {resultado !== null && resultado >= 0 && <p>Posición encontrada: {resultado}</p>}
-      {resultado !== null && resultado === -1 && <p>Elemento no encontrado</p>}
+        {error && <p className="status error">{error}</p>}
+        {resultado !== null && resultado >= 0 && <p className="status success">Posición encontrada: {resultado}</p>}
+        {resultado !== null && resultado === -1 && <p className="status error">Elemento no encontrado</p>}
 
-=======
-function Busqueda({ onVolver }: { onVolver: () => void }) {
-  return (
-    <>
-      <h2>Búsqueda</h2>
->>>>>>> e24badf7c65fbc78b751449811a27720ba0f1fd5
-      <button onClick={onVolver}>← Volver</button>
-    </>
+        <button className="ghost-button" onClick={onVolver}>
+          ← Volver
+        </button>
+      </section>
+    </main>
   )
 }
 

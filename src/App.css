@@ -182,3 +182,212 @@
     border-right-color: var(--border);
   }
 }
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: radial-gradient(circle at top left, rgba(78, 170, 255, 0.18), transparent 20%),
+    radial-gradient(circle at bottom right, rgba(179, 78, 255, 0.16), transparent 18%),
+    linear-gradient(135deg, #070b19 0%, #111828 40%, #0f172a 100%);
+}
+
+.screen {
+  width: min(100%, 960px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: fadeInUp 0.8s ease both;
+}
+
+.hero-card,
+.card {
+  background: rgba(12, 18, 40, 0.85);
+  animation: cardEntrance 0.9s ease both;
+  border: 1px solid rgba(94, 156, 255, 0.18);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+  border-radius: 28px;
+  padding: 32px;
+  color: #e5efff;
+}
+
+.hero-copy {
+  text-align: left;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: #7fb5ff;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  margin: 8px 0 0;
+  color: #b8c4ff;
+  line-height: 1.6;
+}
+
+.button-grid,
+.button-row,
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.button-grid {
+  justify-content: center;
+}
+
+.button-row {
+  justify-content: center;
+}
+
+.form-grid {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.section-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: rgba(82, 164, 255, 0.16);
+  box-shadow: inset 0 0 12px rgba(82, 164, 255, 0.15);
+  font-size: 20px;
+}
+
+.button-icon {
+  margin-right: 10px;
+  font-size: 18px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.button-grid button,
+.button-row button {
+  min-width: 180px;
+}
+
+.neon-button,
+.ghost-button {
+  border: 1px solid rgba(135, 206, 255, 0.35);
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #e6f4ff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.neon-button {
+  background: linear-gradient(135deg, rgba(82, 164, 255, 0.2), rgba(41, 116, 255, 0.22));
+  box-shadow: 0 0 22px rgba(86, 170, 255, 0.35);
+}
+
+.neon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(86, 170, 255, 0.55);
+}
+
+.ghost-button {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ghost-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.input-field {
+  width: 100%;
+  min-width: 0;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fbff;
+  padding: 14px 18px;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-field:focus {
+  border-color: rgba(86, 170, 255, 0.55);
+  box-shadow: 0 0 0 4px rgba(86, 170, 255, 0.12);
+}
+
+.card-header h2,
+.hero-copy h1,
+.card h3 {
+  margin: 0;
+  color: #f4f7ff;
+}
+
+.status {
+  margin-top: 18px;
+  font-weight: 600;
+}
+
+.status.success {
+  color: #a7ffcf;
+}
+
+.status.error {
+  color: #ff9fbf;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 20px;
+  }
+
+  .hero-card,
+  .card {
+    padding: 24px;
+    border-radius: 22px;
+  }
+
+  .button-grid,
+  .button-row,
+  .form-grid {
+    gap: 12px;
+  }
+}

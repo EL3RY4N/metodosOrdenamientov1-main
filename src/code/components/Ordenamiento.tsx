@@ -13,7 +13,11 @@ function Ordenamiento({ onVolver }: { onVolver: () => void }) {
   const [resultado, setResultado] = useState<number[]>([])
 
 function ordenar() {
-  const arreglo = input.split(",").map(Number)
+  const arreglo = input
+    .split(/[\s,]+/)
+    .map((valor) => valor.trim())
+    .filter((valor) => valor !== '')
+    .map(Number)
 
   if (metodo === "Burbuja Menor") setResultado(burbujaMenor(arreglo))
   if (metodo === "Burbuja Mayor") setResultado(burbujaMayor(arreglo))
@@ -33,33 +37,48 @@ function ordenar() {
   ]
 
   return (
-    <>
-      <h2>ordenamiento</h2>
-      {metodos.map((m) => (
-        <button key={m} onClick={() => setMetodo(m)}>
-          {m}
+    <main className="screen">
+      <section className="card">
+        <div className="card-header">
+          <h2>Ordenamiento</h2>
+          <p className="subtitle">Selecciona un algoritmo y ordena tu arreglo con estilo.</p>
+        </div>
+
+        <div className="button-row">
+          {metodos.map((m) => (
+            <button key={m} className="neon-button" onClick={() => setMetodo(m)}>
+              <span className="button-icon">⚙️</span>
+              {m}
+            </button>
+          ))}
+        </div>
+
+        {metodo && (
+          <div className="form-grid">
+            <h3>{metodo}</h3>
+            <input
+              className="input-field"
+              type="text"
+              placeholder="Ej: 5, 3, 8, 1"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button className="neon-button" onClick={ordenar}>
+              <span className="button-icon">🔁</span>
+              Ordenar
+            </button>
+          </div>
+        )}
+
+        {resultado.length > 0 && (
+          <p className="status success">Resultado: {resultado.join(', ')}</p>
+        )}
+
+        <button className="ghost-button" onClick={onVolver}>
+          Volver
         </button>
-      ))}
-
-      {metodo && (
-        <>
-          <h3>{metodo}</h3>
-          <input
-            type="text"
-            placeholder="Ej: 5, 3, 8, 1"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button onClick={ordenar}>Ordenar</button>
-        </>
-      )}
-
-      {resultado.length > 0 && (
-        <p>Resultado: {resultado.join(", ")}</p>
-      )}
-
-      <button onClick={onVolver}>Volver</button>
-    </>
+      </section>
+    </main>
   )
 }
 
